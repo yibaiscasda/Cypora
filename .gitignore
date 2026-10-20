@@ -1,0 +1,12 @@
+node_modules/
+release/
+dist/
+.release-work/
+verification/
+.test-profile/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

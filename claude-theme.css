@@ -1,0 +1,215 @@
+/*
+ * Cypora's Claude-inspired presentation layer.
+ * Palette, font choices, sizes and text width remain owned by Settings.
+ * No content, icon, editor mode, code-gutter geometry or action is replaced.
+ */
+
+:root {
+  --surface-soft: color-mix(in srgb, var(--paper) 96%, var(--ink));
+  --surface-selected: color-mix(in srgb, var(--paper) 91%, var(--ink));
+  --quiet-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+#preferences #pref-image-folder,
+#preferences #pref-default-code-language {
+  flex: 0 1 42%;
+  width: 42%;
+  min-width: 0;
+  max-width: 360px;
+  box-sizing: border-box;
+}
+
+#editor pre.cypora-code-block > code {
+  background-color: var(--surface-soft) !important;
+}
+
+/* A continuous paper surface, with a quieter frame and compact navigation. */
+#titlebar {
+  gap: 14px;
+  background: var(--shell);
+}
+.app-menu button { color: var(--muted); font-size: var(--ui-size); }
+.app-menu button:hover { color: var(--ink); }
+.window-brand { color: var(--ink); letter-spacing: -.15px; font-size: 12px; gap: 7px; }
+.window-brand .capybara-icon { color: var(--muted); }
+#workspace, #preferences.settings-page { border-radius: 12px; box-shadow: none; }
+#activity-rail { gap: 9px; }
+#activity-rail .rail-button { color: var(--muted); border-radius: 9px; }
+#activity-rail .rail-button.active { background: var(--surface-selected); color: var(--ink); }
+#activity-rail .rail-button:hover { background: var(--hover); color: var(--ink); }
+#library-sidebar { padding-top: 18px; }
+.sidebar-heading { margin-bottom: 19px; }
+.workspace-brand { font-family: var(--content-font); font-size: 23px; font-weight: 500; }
+.new-document { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 13px; }
+.library-tools button { border-radius: 7px; }
+.section-label { color: var(--muted); font-size: calc(var(--ui-size) - 2px); }
+.document-row, .project-row { border-radius: 7px; }
+.document-row.selected, body[data-theme=dark] .document-row.selected { background: var(--surface-selected); }
+.sidebar-empty button, .row-missing { color: var(--accent); }
+
+#document-header { min-height: 60px; height: 60px; padding-inline: 25px; }
+#docname { font-weight: 500; }
+.document-title-button { font-weight: 500; }
+.document-tools select, .icon-button { color: var(--muted); }
+#document-main > footer { color: var(--muted); opacity: .88; }
+#empty-state h1 {
+  font-family: var(--content-font);
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.4;
+  letter-spacing: -.6px;
+}
+#empty-state p { color: var(--muted); font-size: var(--ui-size); }
+.empty-mark { color: var(--accent); margin-bottom: 20px; }
+.empty-actions button { border-radius: 11px; box-shadow: var(--quiet-shadow); }
+.empty-actions button:hover { border-color: color-mix(in srgb, var(--ink) 28%, var(--paper)); }
+
+/* Existing text and math rendering stays intact; only reading rhythm changes. */
+#editor .vditor-reset h1, #editor .vditor-reset h2 {
+  border-bottom: 0;
+  letter-spacing: -.02em;
+  font-weight: 600;
+}
+#editor .vditor-reset h1 { margin-bottom: .85em; }
+#editor .vditor-reset h2 { margin-top: 1.65em; }
+#editor .vditor-reset blockquote {
+  border-left: 3px solid var(--line)!important;
+  color: var(--muted)!important;
+}
+#editor .vditor-reset :not(pre) > code {
+  background: var(--surface-soft);
+  color: inherit;
+  border: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+  padding: .08em .3em;
+}
+#editor .vditor-reset table th { background: var(--surface-soft); }
+#editor .vditor-reset table th, #editor .vditor-reset table td { border-color: var(--line); }
+#editor .vditor-reset table tr { background: transparent; }
+#editor .vditor-reset hr { background: var(--line); }
+.code-block-toolbar { background: var(--surface-soft); }
+.code-language-picker { box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 12%, transparent); }
+.code-language-options > button.current { background: var(--surface-selected); }
+
+/* Settings keeps every entry, with one readable column and a clear hierarchy. */
+#preferences .settings-navigation { width: 248px; padding: 17px 13px 16px; }
+#preferences .settings-navigation h2 {
+  font-family: var(--content-font);
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -.4px;
+  margin-bottom: 20px;
+}
+#preferences .settings-navigation > button { border-radius: 7px; min-height: 35px; }
+#preferences .settings-navigation > button.selected { background: var(--surface-selected); font-weight: 500; }
+#preferences .settings-navigation > button.selected:hover { background: var(--surface-selected); }
+#preferences .settings-navigation .settings-back { margin-bottom: 26px; }
+#preferences .settings-section-label { font-size: 11px; padding-top: 15px; }
+#preferences .settings-search { background: var(--paper); border-radius: 8px; box-shadow: none; }
+#preferences .settings-search:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--line));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+#preferences .settings-content { max-width: 960px; padding: 43px 55px 88px; }
+#preferences .settings-pane h1 {
+  font-family: var(--content-font);
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.5px;
+}
+#preferences .settings-subtitle { font-size: 14px; line-height: 1.65; margin-top: 9px; margin-bottom: 32px; }
+#preferences .settings-pane h3 { font-size: 14px; font-weight: 600; margin-top: 33px; }
+#preferences .settings-card .preference-row { min-height: 71px; padding-block: 17px; border-color: var(--line); }
+#preferences .preference-row small { font-size: 12px; line-height: 1.65; margin-top: 4px; }
+#preferences .settings-card select, #preferences .settings-control {
+  min-height: 34px;
+  border-radius: 7px;
+  background: var(--paper);
+  box-shadow: none;
+}
+#preferences .preference-row input[type=checkbox] { background: color-mix(in srgb, var(--ink) 22%, var(--paper)); }
+#preferences .preference-row input[type=checkbox]:checked { background: var(--accent); }
+#preferences .appearance-mode { background: var(--surface-soft); border-radius: 8px; }
+#preferences .appearance-mode button { border-radius: 6px; }
+#preferences .appearance-mode button.selected { background: var(--paper); box-shadow: var(--quiet-shadow); }
+.theme-editor { border-radius: 10px; }
+.theme-editor-title { padding: 14px 17px; font-weight: 500; }
+.theme-editor-body { padding-inline: 17px; }
+.live-theme-preview { height: 154px; }
+.preview-heading { font-family: var(--preview-font); font-weight: 500; }
+.preview-badge { border-radius: 5px; }
+.appearance-advanced > summary { color: var(--muted); }
+.appearance-advanced[open] > summary { color: var(--ink); }
+.shortcut-table, .organizer-card { border-radius: 10px; box-shadow: none; }
+.shortcut-group { background: var(--surface-soft); }
+.organizer-top h1 { font-family: var(--content-font); font-size: 29px; font-weight: 500; line-height: 1.4; }
+.organizer-card { padding: 18px 20px; }
+.organizer-actions button { border-radius: 7px; }
+
+/* Assistant prose is typographic; user messages and controls stay sans serif. */
+.conversation-toolbar { border-bottom-color: color-mix(in srgb, var(--line) 65%, transparent); }
+.conversation-search { max-width: 250px; }
+.conversation-stream { width: min(100%, var(--content-width, 860px)); padding-top: 34px; }
+.conversation-turn + .conversation-turn { margin-top: 30px; }
+.conversation-user { margin-bottom: 28px; }
+.conversation-user .conversation-message-body {
+  background: var(--surface-soft);
+  border: 1px solid color-mix(in srgb, var(--line) 50%, transparent);
+  border-radius: 14px;
+  padding: 12px 17px;
+}
+.conversation-user .conversation-markdown.vditor-reset { font-family: var(--ui-font)!important; font-size: var(--ui-size)!important; }
+.conversation-assistant .conversation-markdown.vditor-reset { letter-spacing: .005em; }
+.conversation-markdown h1, .conversation-markdown h2, .conversation-markdown h3 { font-weight: 600; letter-spacing: -.01em; }
+.conversation-markdown p { margin-bottom: 1em; }
+.conversation-markdown pre { border-radius: 9px!important; background: var(--surface-soft)!important; }
+.conversation-markdown pre code { background: transparent!important; }
+.conversation-primary { background: var(--accent)!important; color: var(--accent-text, white)!important; }
+.conversation-turn-tools, .conversation-turn-actions, .conversation-edit-button { color: var(--muted); }
+.conversation-turn.is-selected:before { border-radius: 11px; }
+.conversation-rail-preview { border-radius: 9px; box-shadow: var(--quiet-shadow); }
+.conversation-import { border-radius: 13px!important; }
+.conversation-import-heading h2 { font-family: var(--content-font); font-size: 25px; font-weight: 500; }
+.conversation-import-tabs button.selected { background: var(--surface-selected); }
+
+dialog:not(#preferences) { box-shadow: 0 12px 48px color-mix(in srgb, var(--ink) 12%, transparent); }
+dialog:not(#preferences)::backdrop { background: color-mix(in srgb, var(--ink) 18%, transparent); backdrop-filter: blur(2px); }
+dialog:not(#preferences) h2 { font-family: var(--content-font); font-weight: 500; }
+#context-menu { box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 12%, transparent); border-radius: 9px; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#outline-panel { border-left-color: color-mix(in srgb, var(--line) 70%, transparent); }
+
+@media (max-width: 1100px) {
+  #preferences .settings-navigation { width: 220px; }
+  #preferences .settings-content { padding: 34px 30px 70px; }
+  #document-header { padding-inline: 18px; }
+}
+@media (max-width: 850px) {
+  #preferences .settings-navigation { width: 185px; padding-inline: 9px; }
+  #preferences .settings-content { padding: 28px 22px 60px; }
+  #preferences .settings-pane h1 { font-size: 26px; }
+  #preferences .settings-card .preference-row { gap: 16px; }
+  #preferences .settings-control-group { max-width: 50%; }
+  .app-menu button { padding-inline: 6px; }
+  .conversation-toolbar { flex-wrap: wrap; row-gap: 5px; }
+  .conversation-search { flex-basis: 150px; }
+  .conversation-toolbar-actions { flex-wrap: wrap; }
+}
+@media (max-width: 680px) {
+  #preferences .settings-navigation { width: 155px; }
+  #preferences .settings-navigation > button { gap: 7px; padding-inline: 7px; font-size: 12px; }
+  #preferences .settings-navigation h2 { font-size: 23px; }
+  #preferences .settings-content { padding-inline: 16px; }
+  #preferences .settings-card .preference-row { flex-wrap: wrap; gap: 10px; }
+  #preferences .settings-card .preference-row > span:first-child { flex-basis: calc(100% - 50px); }
+  #preferences .settings-card select { max-width: 100%; }
+  #preferences .settings-control-group { max-width: 100%; }
+  .appearance-mode { flex-wrap: wrap; width: auto; }
+  #preferences .appearance-mode button { min-width: 45px; padding-inline: 7px; }
+}
+@media print {
+  #workspace { border-radius: 0; box-shadow: none; }
+}

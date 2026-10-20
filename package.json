@@ -1,0 +1,35 @@
+{
+  "name": "cypora",
+  "productName": "Cypora",
+  "version": "0.8.0",
+  "description": "An independent local-first Markdown editor",
+  "main": "main.cjs",
+  "author": "Cypora",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "electron tools/quiet-test.cjs",
+    "test:planner": "node tools/planner-test.cjs",
+    "test:settings": "node tools/settings-test.cjs",
+    "package": "node tools/package.cjs",
+    "test:conversations": "node tools/conversation-model-test.cjs && node tools/codex-import-test.cjs",
+    "test:editor-preferences": "electron tools/editor-preferences-test.cjs",
+    "test:markdown-preferences": "electron tools/markdown-preferences-test.cjs",
+    "test:file-preferences": "node tools/file-preferences-test.cjs",
+    "test:reading-preferences": "node tools/reading-preferences-test.cjs",
+    "test:code-wrap": "electron tools/code-blocks-test.cjs --code-wrap-only",
+    "test:attachments": "node tools/library-attachments-test.cjs",
+    "test:context-menu": "electron tools/context-menu-test.cjs",
+    "release": "node tools/release.cjs",
+    "docs:screenshots": "electron tools/screenshots.cjs"
+  },
+  "dependencies": {
+    "@mathjax/mathjax-newcm-font": "4.1.0",
+    "mathjax": "4.1.0",
+    "vditor": "3.11.2"
+  },
+  "devDependencies": {
+    "electron": "41.1.0",
+    "rcedit": "5.0.2"
+  }
+}

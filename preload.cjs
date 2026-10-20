@@ -1,0 +1,7 @@
+const {contextBridge,ipcRenderer}=require('electron');
+const channels=new Set(['boot','choose-file','open-file','new-file','save-file','dirty','draft','clear-draft','unsaved','settings','folder','image','external','export','close-ready','library','add-project','create-document','document-update','rename-document','move-document','trash-document','project-update','remove-project','search-library','reveal-document','reveal-project','check-external','window','app-menu','show-backups','planner','task-save','task-status','task-delete','reminder-read','template-save','template-delete','template-create-document','quit-app','copy-theme','read-clipboard','choose-document-home','reset-document-home','open-settings-folder','test-notification','open-notification-settings','confirm-close','editor-context','outline-context','library-reorder','write-clipboard','read-editor-clipboard']);
+for(const name of ['list-codex-conversations','read-codex-conversation','choose-conversation-files','open-in-typora','image-clipboard','write-rich-clipboard','image-content','image-location','duplicate-document','copy-document-path','document-properties'])channels.add(name);
+contextBridge.exposeInMainWorld('cypora',{
+  call:async(name,...args)=>{if(!channels.has(name))throw Error('无效操作');const r=await ipcRenderer.invoke(name,...args);if(!r.ok)throw Error(r.error);return r.value;},
+  onAction:fn=>ipcRenderer.on('action',(_e,data)=>fn(data))
+});
