@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512">
+<title>Cypora — 橘子呆呆豚</title>
+<desc>Centered upright capybara with a small orange, symmetrical ears, eyes and muzzle.</desc>
+<circle cx="256" cy="256" r="246" fill="#395b49"/>
+<g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M256 180 C228 180 207 184 190 191 C192 171 183 158 170 161 C157 164 154 184 166 199 C149 217 139 245 137 277 L128 344 C123 382 145 408 181 416 C206 422 306 422 331 416 C367 408 389 382 384 344 L375 277 C373 245 363 217 346 199 C358 184 355 164 342 161 C329 158 320 171 322 191 C305 184 284 180 256 180 Z" stroke-width="18"/>
+  <path d="M233 157 C223 145 225 126 236 119 C246 112 266 112 276 119 C287 126 289 145 279 157 C270 165 242 165 233 157 Z" stroke-width="12"/>
+  <path d="M256 115 L256 99 M258 103 Q272 90 285 100 Q275 113 258 109" stroke-width="9"/>
+</g>
+<g fill="#fff">
+  <circle cx="195" cy="260" r="7"/>
+  <circle cx="317" cy="260" r="7"/>
+  <rect x="215" y="250" width="82" height="112" rx="32"/>
+</g>
+<rect x="241" y="269" width="30" height="10" rx="5" fill="#395b49"/>
+<path d="M256 277 L256 308 M256 307 L247 320 M256 307 L265 320" fill="none" stroke="#395b49" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
