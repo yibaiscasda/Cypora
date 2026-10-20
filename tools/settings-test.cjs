@@ -1,0 +1,18 @@
+const assert=require('node:assert/strict'),Model=require('../settings-model.js');
+const checks=[];const check=(name,fn)=>{fn();checks.push(name);};
+check('clean defaults',()=>{assert.equal(Model.load().appearanceMode,'system');assert.equal(Model.load().themes.light.background,'#faf9f5');assert.equal(Model.load().themes.light.name,'Claude');});
+check('legacy paper and fonts migrate',()=>{const migrated=Model.load({theme:'sepia',uiFont:'yahei',contentFont:'serif',codeFont:'Cascadia Code'});assert.equal(migrated.appearanceMode,'sepia');assert.match(migrated.themes.light.uiFont,/YaHei/);assert.match(migrated.themes.dark.contentFont,/Georgia/);});
+check('theme roundtrip preserves both colors and fonts',()=>{const theme={...Model.base.dark,accent:'#123456',uiFont:'Segoe UI',uiWeight:600,codeItalic:true};assert.deepEqual(Model.importTheme(Model.exportTheme(theme,'dark'),'dark'),theme);});
+check('invalid theme and injected font rejected',()=>{assert.throws(()=>Model.theme({background:'red'},'light'));assert.throws(()=>Model.theme({uiFont:'url(https://invalid)'},'light'));assert.throws(()=>Model.theme({uiFont:'Arial; background:red'},'light'));});
+check('unsupported imports rejected',()=>{assert.throws(()=>Model.importTheme('https://codex/theme','light'));assert.throws(()=>Model.importTheme(JSON.stringify({format:'other',version:1}),'light'));});
+check('oversized theme input bounded',()=>assert.throws(()=>Model.importTheme('x'.repeat(16001),'light')));
+check('sizes and zoom bounded',()=>{for(const [key,value]of [['uiSize',1],['zoom',10000],['contentLineHeight',10]])assert.throws(()=>Model.patch({[key]:value}));assert.equal(Model.patch({zoom:125}).zoom,125);});
+check('default shortcuts are unique',()=>{const keys=Object.values(Model.bindings());assert.equal(new Set(keys).size,keys.length);});
+check('canonical shortcut ordering',()=>assert.equal(Model.normalizeShortcut('Shift+Ctrl+K'),'Ctrl+Shift+K'));
+check('shifted physical digit keeps its shortcut identity',()=>assert.equal(Model.eventShortcut({key:'!',code:'Digit1',ctrlKey:true,shiftKey:true}),'Ctrl+Shift+1'));
+check('bare letters and reserved edit shortcuts rejected',()=>{for(const key of ['K','Ctrl+C','Alt+F4','Ctrl+V','Ctrl+B'])assert.throws(()=>Model.normalizeShortcut(key));});
+check('binding conflict rejected',()=>assert.throws(()=>Model.patch({shortcuts:{tasks:'Ctrl+O'}}),/冲突/));
+check('unassigned binding supported',()=>assert.equal(Model.bindings(Model.patch({shortcuts:{tasks:''}}).shortcuts).tasks,''));
+check('bad historical prefs fall back individually',()=>{const loaded=Model.load({uiSize:-10,closeBehavior:'fake',alwaysOnTop:true});assert.equal(loaded.uiSize,14);assert.equal(loaded.closeBehavior,'tasks');assert.equal(loaded.alwaysOnTop,true);});
+check('incoming preferences cannot replace user documents',()=>{const patch=Model.patch({documents:[],projects:[],recent:[],themes:Model.base});assert.equal('documents'in patch,false);assert.equal('projects'in patch,false);});
+console.log(JSON.stringify({passed:true,checks}));
